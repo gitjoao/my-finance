@@ -18,20 +18,61 @@ export class TransactionService {
   }
 
   async getSummary() {
-    const transactions = await prisma.transaction.findMany()
+    const [income, expense] = await Promise.all([
+      prisma.transaction.aggregate({
+        where: { type: "income" },
+        _sum: { amount: true },
+      }),
+      prisma.transaction.aggregate({
+        where: { type: "expense" },
+        _sum: { amount: true },
+      }),
+    ])
 
-    const income = transactions
-      .filter(t => t.type === "income")
-      .reduce((acc, t) => acc + t.amount, 0)
-
-    const expense = transactions
-      .filter(t => t.type === "expense")
-      .reduce((acc, t) => acc + t.amount, 0)
+    const totalIncome = income._sum.amount || 0
+    const totalExpense = expense._sum.amount || 0
 
     return {
-      income,
-      expense,
-      balance: income - expense,
+      income: totalIncome,
+      expense: totalExpense,
+      balance: totalIncome - totalExpense,
+    }
+  }
+
+  async getSummaryByMonth(month: number, year: number) {
+    const startDate = new Date(year, month - 1, 1)
+    const endDate = new Date(year, month, 0)
+
+    const [income, expense] = await Promise.all([
+      prisma.transaction.aggregate({
+        where: {
+          type: "income",
+          date: {
+            gte: startDate,
+            lte: endDate,
+          },
+        },
+        _sum: { amount: true },
+      }),
+      prisma.transaction.aggregate({
+        where: {
+          type: "expense",
+          date: {
+            gte: startDate,
+            lte: endDate,
+          },
+        },
+        _sum: { amount: true },
+      }),
+    ])
+
+    const totalIncome = income._sum.amount || 0
+    const totalExpense = expense._sum.amount || 0
+
+    return {
+      income: totalIncome,
+      expense: totalExpense,
+      balance: totalIncome - totalExpense,
     }
   }
 }

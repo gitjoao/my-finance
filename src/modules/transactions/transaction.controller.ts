@@ -18,7 +18,16 @@ router.get("/", async (req, res) => {
 })
 
 router.get("/summary", async (req, res) => {
-  const summary = await service.getSummary()
+  const currentDate = new Date()
+  const currentMonth = currentDate.getMonth() + 1
+  const currentYear = currentDate.getFullYear()
+
+  const { month, year } = req.query
+
+  const summary = await service.getSummaryByMonth(
+    Number(month) || currentMonth,
+    Number(year) || currentYear
+  )
   res.json(summary)
 })
 
