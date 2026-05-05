@@ -1,78 +1,29 @@
-import { prisma } from "../../lib/prisma"
+import { TransactionData, TransactionRepository } from "./transaction.repository"
 
 export class TransactionService {
-  async create(data: {
-    type: string
-    amount: number
-    category: string
-    description?: string
-    date: Date
-  }) {
-    return prisma.transaction.create({ data })
-  }
+  private repo = new TransactionRepository()
 
-  async findAll() {
-    return prisma.transaction.findMany({
-      orderBy: { date: "desc" },
-    })
-  }
-
-  async getSummary() {
-    const [income, expense] = await Promise.all([
-      prisma.transaction.aggregate({
-        where: { type: "income" },
-        _sum: { amount: true },
-      }),
-      prisma.transaction.aggregate({
-        where: { type: "expense" },
-        _sum: { amount: true },
-      }),
-    ])
-
-    const totalIncome = income._sum.amount || 0
-    const totalExpense = expense._sum.amount || 0
-
-    return {
-      income: totalIncome,
-      expense: totalExpense,
-      balance: totalIncome - totalExpense,
-    }
+  async create(data: TransactionData) {
+    return this.repo.create(data)
   }
 
   async getSummaryByMonth(month: number, year: number) {
-    const startDate = new Date(year, month - 1, 1)
-    const endDate = new Date(year, month, 0)
+    const start = new Date(year, month - 1, 1)
+    const end = new Date(year, month, 1)
 
-    const [income, expense] = await Promise.all([
-      prisma.transaction.aggregate({
-        where: {
-          type: "income",
-          date: {
-            gte: startDate,
-            lte: endDate,
-          },
-        },
-        _sum: { amount: true },
-      }),
-      prisma.transaction.aggregate({
-        where: {
-          type: "expense",
-          date: {
-            gte: startDate,
-            lte: endDate,
-          },
-        },
-        _sum: { amount: true },
-      }),
-    ])
+    const [income, expense] = await this.repo.getSummaryByMonth(start, end)
 
-    const totalIncome = income._sum.amount || 0
-    const totalExpense = expense._sum.amount || 0
+    const totalIncome = income._sum.amount ?? 0
+    const totalExpense = expense._sum.amount ?? 0
 
     return {
       income: totalIncome,
       expense: totalExpense,
       balance: totalIncome - totalExpense,
     }
+  }
+
+  async findAll() {
+    return this.repo.findAll()
   }
 }

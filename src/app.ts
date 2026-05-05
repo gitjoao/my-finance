@@ -1,5 +1,5 @@
 import express from "express"
-import transactionRoutes from "./modules/transactions/transaction.controller"
+import transactionRoutes from "./modules/transactions/transaction.route"
 
 const app = express()
 
