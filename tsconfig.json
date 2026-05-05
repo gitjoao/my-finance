@@ -4,5 +4,9 @@
   "rootDir": "src",
   "outDir": "dist",
   "strict": true,
-  "esModuleInterop": true
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2020",
+    "esModuleInterop": true
+  }
 }
