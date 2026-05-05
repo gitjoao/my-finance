@@ -5,7 +5,10 @@ const service = new TransactionService()
 
 export class TransactionController {
   async create(req: Request, res: Response) {
-    const result = await service.create(req.body)
+
+    const data = req.body
+
+    const result = await service.create({ ...data, date: new Date(data.date) })
     res.json(result)
   }
 
