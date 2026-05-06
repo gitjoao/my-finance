@@ -1,9 +1,11 @@
-import { TransactionType } from "../../../generated/prisma/client"
+import { PaymentMethod, TransactionOwner, TransactionType } from "@prisma/client"
 import { prisma } from "../../lib/prisma"
 
 export interface TransactionData {
 	type: TransactionType
 	amount: number
+	owner?: TransactionOwner
+	paymentMethod?: PaymentMethod
 	category: string
 	description?: string
 	date: Date
@@ -28,7 +30,11 @@ export class TransactionRepository {
 			}),
 			prisma.transaction.aggregate({
 				_sum: { amount: true },
-				where: { type: "expense", date: { gte: start, lt: end } },
+				where: { type: "expense", owner: "me", date: { gte: start, lt: end } },
+			}),
+			prisma.transaction.aggregate({
+				_sum: { amount: true },
+				where: { type: "expense", owner: "me", paymentMethod: "credit", date: { gte: start, lt: end } },
 			}),
 			prisma.transaction.aggregate({
 				_sum: { amount: true },

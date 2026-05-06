@@ -1,11 +1,12 @@
 import { z } from "zod"
-import { PaymentMethod, TransactionType } from "../../../generated/prisma/enums"
+import { PaymentMethod, TransactionOwner, TransactionType } from "@prisma/client"
 
 export const createTransactionValidation = z.object({
     type: z.enum(TransactionType),
     amount: z.number().positive(),
     category: z.string().min(1),
     paymentMethod: z.enum(PaymentMethod).optional(),
+    owner: z.enum(TransactionOwner).optional(),
     description: z.string().optional(),
     date: z.string(),
 }).refine((data) => {
