@@ -19,4 +19,12 @@ export const createTransactionValidation = z.object({
     path: ["paymentMethod"],
 })
 
+export const updateTransactionValidation = z.object({
+    amount: z.number().positive().optional(),
+    category: z.string().min(1).optional(),
+    paymentMethod: z.enum(PaymentMethod).optional(),
+    description: z.string().optional(),
+    date: z.string().optional(),
+})
+
 export type CreateTransactionDTO = z.infer<typeof createTransactionValidation>

@@ -46,4 +46,12 @@ export class TransactionService {
 
     return this.repo.delete(id)
   }
+
+  async update(id: string, data: Partial<TransactionData>) {
+    const transaction = await this.repo.findById(id)
+    if (!transaction) {
+      throw new Error("Transação não encontrada")
+    }
+    return this.repo.update(id, data)
+  }
 }

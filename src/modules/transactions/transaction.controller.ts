@@ -40,4 +40,16 @@ export class TransactionController {
     }
     res.status(204).send()
   }
+
+  async update(req: Request, res: Response) {
+    const { id } = req.params
+    const data = req.body
+
+    try {
+      const result = await service.update(String(id), data)
+      res.json(result)
+    } catch {
+      return res.status(404).json({ message: "Transação não encontrada" })
+    }
+  }
 }

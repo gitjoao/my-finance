@@ -51,6 +51,10 @@ export class TransactionRepository {
 		return prisma.transaction.findUnique({ where: { id } })
 	}
 
+	update(id: string, data: Partial<TransactionData>) {
+		return prisma.transaction.update({ where: { id }, data })
+	}
+
 	delete(id: string) {
 		return prisma.transaction.delete({ where: { id } })
 	}
