@@ -30,6 +30,14 @@ export class TransactionRepository {
 				_sum: { amount: true },
 				where: { type: "expense", date: { gte: start, lt: end } },
 			}),
+			prisma.transaction.aggregate({
+				_sum: { amount: true },
+				where: { type: "expense", owner: "father_in_law", paymentMethod: "credit", date: { gte: start, lt: end } },
+			}),
+			prisma.transaction.findMany({
+				where: { date: { gte: start, lt: end } },
+				orderBy: { date: "asc" },
+			}),
 		])
 	}
 }

@@ -4,9 +4,12 @@ generator client {
 }
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
 }
 
+enum TransactionOwner {
+  me
+  father_in_law
+}
 
 enum TransactionType {
   income
@@ -23,6 +26,7 @@ model Transaction {
   amount      Float
   category    String
   paymentMethod PaymentMethod?
+  owner         TransactionOwner  @default(me)
   description String?
   date        DateTime
   createdAt   DateTime @default(now())
