@@ -4,15 +4,29 @@ generator client {
 }
 datasource db {
   provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 
+enum TransactionType {
+  income
+  expense
+}
+
+enum PaymentMethod {
+  credit
+  debit
+}
 model Transaction {
-  id          String   @id @default(cuid())
-  type        String   // income | expense
+  id          String   @id @default(uuid())
+  type        TransactionType
   amount      Float
   category    String
+  paymentMethod PaymentMethod?
   description String?
   date        DateTime
   createdAt   DateTime @default(now())
 }
+
+// npx prisma migrate dev --name migration_name
+// npx prisma generate

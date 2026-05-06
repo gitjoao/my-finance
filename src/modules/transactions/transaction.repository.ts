@@ -1,7 +1,8 @@
+import { TransactionType } from "../../../generated/prisma/client"
 import { prisma } from "../../lib/prisma"
 
 export interface TransactionData {
-	type: string
+	type: TransactionType
 	amount: number
 	category: string
 	description?: string
