@@ -30,4 +30,14 @@ export class TransactionController {
     const transactions = await service.findAll()
     res.json(transactions)
   }
+
+  async delete(req: Request, res: Response) {
+    const { id } = req.params
+    try {
+      await service.delete(String(id))
+    } catch {
+      return res.status(404).json({ message: "Transação não encontrada" })
+    }
+    res.status(204).send()
+  }
 }

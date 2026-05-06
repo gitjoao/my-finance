@@ -35,4 +35,15 @@ export class TransactionService {
   async findAll() {
     return this.repo.findAll()
   }
+
+  async delete(id: string) {
+
+    const transaction = await this.repo.findById(id)
+
+    if (!transaction) {
+      throw new Error("Transação não encontrada")
+    }
+
+    return this.repo.delete(id)
+  }
 }

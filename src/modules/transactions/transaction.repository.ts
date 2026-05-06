@@ -46,4 +46,12 @@ export class TransactionRepository {
 			}),
 		])
 	}
+
+	findById(id: string) {
+		return prisma.transaction.findUnique({ where: { id } })
+	}
+
+	delete(id: string) {
+		return prisma.transaction.delete({ where: { id } })
+	}
 }
