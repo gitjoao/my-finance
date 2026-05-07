@@ -33,8 +33,12 @@ export class TransactionService {
     }
   }
 
-  async findAll() {
-    return this.repo.findAll()
+  async list(filters: {
+    type?: "income" | "expense"
+    month?: number
+    year?: number
+  }) {
+    return this.repo.findAll(filters)
   }
 
   async delete(id: string) {

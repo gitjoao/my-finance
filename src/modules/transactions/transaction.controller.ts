@@ -27,8 +27,27 @@ export class TransactionController {
   }
 
   async list(req: Request, res: Response) {
-    const transactions = await service.findAll()
-    res.json(transactions)
+    const type = req.query.type as
+      | "income"
+      | "expense"
+      | undefined
+
+    const month = req.query.month
+      ? Number(req.query.month)
+      : undefined
+
+    const year = req.query.year
+      ? Number(req.query.year)
+      : undefined
+
+    const transactions =
+      await service.list({
+        type,
+        month,
+        year,
+      })
+
+    return res.json(transactions)
   }
 
   async delete(req: Request, res: Response) {
