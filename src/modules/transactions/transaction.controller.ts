@@ -46,8 +46,18 @@ export class TransactionController {
     const data = req.body
 
     try {
-      const result = await service.update(String(id), data)
+      const result = await service.update(String(id), { ...data, date: new Date(data.date) })
       res.json(result)
+    } catch {
+      return res.status(404).json({ message: "Transação não encontrada" })
+    }
+  }
+
+  async findById(req: Request, res: Response) {
+    const { id } = req.params
+    try {
+      const transaction = await service.findById(String(id))
+      res.json(transaction)
     } catch {
       return res.status(404).json({ message: "Transação não encontrada" })
     }

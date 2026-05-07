@@ -54,4 +54,12 @@ export class TransactionService {
     }
     return this.repo.update(id, data)
   }
+
+  async findById(id: string) {
+    const transaction = await this.repo.findById(id)
+    if (!transaction) {
+      throw new Error("Transação não encontrada")
+    }
+    return transaction
+  }
 }

@@ -7,9 +7,15 @@ const router = Router()
 const controller = new TransactionController()
 
 router.post("/", validate(createTransactionValidation), controller.create)
-router.get("/", controller.list)
-router.put("/:id", validate(updateTransactionValidation), controller.update)
-router.delete("/:id", controller.delete)
+
 router.get("/summary", controller.summary)
+
+router.get("/", controller.list)
+
+router.get("/:id", controller.findById)
+
+router.put("/:id", validate(updateTransactionValidation), controller.update)
+
+router.delete("/:id", controller.delete)
 
 export default router

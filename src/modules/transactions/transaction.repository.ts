@@ -18,7 +18,7 @@ export class TransactionRepository {
 
 	findAll() {
 		return prisma.transaction.findMany({
-			orderBy: { date: "desc" },
+			orderBy: { date: "asc" },
 		})
 	}
 
