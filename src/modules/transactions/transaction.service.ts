@@ -8,8 +8,9 @@ export class TransactionService {
   }
 
   async getSummaryByMonth(month: number, year: number) {
-    const start = new Date(year, month - 1, 1)
-    const end = new Date(year, month, 1)
+    const start = new Date(Date.UTC(year, month - 1, 1))
+
+    const end = new Date(Date.UTC(year, month, 1))
 
     const [income, expense, meCredit, fatherInLawCredit, transactions] = await this.repo.getSummaryByMonth(start, end)
 
