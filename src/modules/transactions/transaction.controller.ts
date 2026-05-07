@@ -40,11 +40,17 @@ export class TransactionController {
       ? Number(req.query.year)
       : undefined
 
+    const paymentMethod = req.query.paymentMethod as
+      | "credit"
+      | "debit"
+      | undefined
+
     const transactions =
       await service.list({
         type,
         month,
         year,
+        paymentMethod,
       })
 
     return res.json(transactions)

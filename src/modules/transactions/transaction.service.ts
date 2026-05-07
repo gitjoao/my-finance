@@ -37,6 +37,7 @@ export class TransactionService {
     type?: "income" | "expense"
     month?: number
     year?: number
+    paymentMethod?: "credit" | "debit"
   }) {
     return this.repo.findAll(filters)
   }

@@ -19,6 +19,7 @@ type Filters = {
 	type?: "income" | "expense";
 	month?: number;
 	year?: number;
+	paymentMethod?: "credit" | "debit";
 };
 
 export class TransactionRepository {
@@ -42,6 +43,10 @@ export class TransactionRepository {
 				gte: start,
 				lt: end,
 			};
+		}
+
+		if (filters.paymentMethod) {
+			where.paymentMethod = filters.paymentMethod;
 		}
 
 		return prisma.transaction.findMany({
