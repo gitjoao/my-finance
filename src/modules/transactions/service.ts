@@ -39,6 +39,7 @@ export class TransactionService {
     month?: number
     year?: number
     paymentMethod?: "credit" | "debit"
+    category?: string
   }) {
     return this.repo.findAll(filters)
   }
