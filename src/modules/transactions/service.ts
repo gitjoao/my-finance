@@ -1,4 +1,5 @@
-import { TransactionData, TransactionRepository } from "./transaction.repository"
+import { fixedExpenses } from "./preset/fixedExpenses"
+import { TransactionData, TransactionRepository } from "./repository"
 
 export class TransactionService {
   private repo = new TransactionRepository()
@@ -67,5 +68,24 @@ export class TransactionService {
       throw new Error("Transação não encontrada")
     }
     return transaction
+  }
+
+  async createPreset(month: number, year: number) {
+    const transactions =
+      fixedExpenses.map((expense) => ({
+        type: "expense",
+        amount: expense.amount,
+        category: expense.category,
+        paymentMethod: "debit",
+        owner: "me",
+        description: expense.description,
+        date: new Date(
+          Date.UTC(year, month - 1, 1)
+        ),
+      }))
+
+    return this.repo.createMany(
+      transactions
+    )
   }
 }

@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { TransactionService } from "./transaction.service"
+import { TransactionService } from "./service"
 
 const service = new TransactionService()
 
@@ -86,5 +86,19 @@ export class TransactionController {
     } catch {
       return res.status(404).json({ message: "Transação não encontrada" })
     }
+  }
+
+  async createPreset(
+    req: Request,
+    res: Response
+  ) {
+    const { month, year } = req.body
+
+    await service.createPreset(month, year)
+
+    return res.status(201).json({
+      message:
+        "Despesas fixas criadas com sucesso",
+    })
   }
 }

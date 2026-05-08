@@ -109,4 +109,10 @@ export class TransactionRepository {
 	delete(id: string) {
 		return prisma.transaction.delete({ where: { id } });
 	}
+
+	createMany(data: any[]) {
+		return prisma.transaction.createMany({
+			data,
+		})
+	}
 }

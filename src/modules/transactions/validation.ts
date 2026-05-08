@@ -27,4 +27,9 @@ export const updateTransactionValidation = z.object({
     date: z.string().optional(),
 })
 
+export const presetValidation = z.object({
+    month: z.number().min(1).max(12),
+    year: z.number().min(2000).max(2100),
+})
+
 export type CreateTransactionDTO = z.infer<typeof createTransactionValidation>
