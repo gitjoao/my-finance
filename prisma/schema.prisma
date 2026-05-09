@@ -25,6 +25,9 @@ model Transaction {
   amount      Float
   category    String
   paymentMethod PaymentMethod?
+  installmentGroup String?
+  installmentTotal Int?
+  installmentNumber Int?
   owner         TransactionOwner  @default(me)
   description String?
   date        DateTime

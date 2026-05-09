@@ -1,19 +1,4 @@
-import {
-	PaymentMethod,
-	TransactionOwner,
-	TransactionType,
-} from "@prisma/client";
 import { prisma } from "../../lib/prisma";
-
-export interface TransactionData {
-	type: TransactionType;
-	amount: number;
-	owner?: TransactionOwner;
-	paymentMethod?: PaymentMethod;
-	category: string;
-	description?: string;
-	date: Date;
-}
 
 type Filters = {
 	type?: "income" | "expense";
@@ -24,7 +9,7 @@ type Filters = {
 };
 
 export class TransactionRepository {
-	create(data: TransactionData) {
+	create(data: any) {
 		return prisma.transaction.create({ data });
 	}
 
@@ -107,7 +92,7 @@ export class TransactionRepository {
 		return prisma.transaction.findUnique({ where: { id } });
 	}
 
-	update(id: string, data: Partial<TransactionData>) {
+	update(id: string, data: Partial<any>) {
 		return prisma.transaction.update({ where: { id }, data });
 	}
 

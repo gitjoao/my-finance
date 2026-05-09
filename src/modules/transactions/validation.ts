@@ -1,16 +1,16 @@
 import { z } from "zod"
-import { PaymentMethod, TransactionOwner, TransactionType } from "@prisma/client"
 
 export const createTransactionValidation = z.object({
-    type: z.enum(TransactionType),
+    type: z.enum(["income", "expense"]),
     amount: z.number().positive(),
     category: z.string().min(1),
-    paymentMethod: z.enum(PaymentMethod).optional(),
-    owner: z.enum(TransactionOwner).optional(),
+    paymentMethod: z.enum(["credit", "debit"]).optional(),
+    installmentTotal: z.number().positive().optional(),
+    owner: z.enum(["me", "father_in_law"]).optional(),
     description: z.string().optional(),
     date: z.string(),
 }).refine((data) => {
-    if (data.type === TransactionType.expense && !data.paymentMethod) {
+    if (data.type === "expense" && !data.paymentMethod) {
         return false
     }
     return true
@@ -22,7 +22,7 @@ export const createTransactionValidation = z.object({
 export const updateTransactionValidation = z.object({
     amount: z.number().positive().optional(),
     category: z.string().min(1).optional(),
-    paymentMethod: z.enum(PaymentMethod).optional(),
+    paymentMethod: z.enum(["credit", "debit"]).optional(),
     description: z.string().optional(),
     date: z.string().optional(),
 })
