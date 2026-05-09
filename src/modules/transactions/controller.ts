@@ -67,7 +67,9 @@ export class TransactionController {
     try {
       const result = await service.update(String(id), {
         ...data,
-        date: new Date(data.date),
+        ...(data.date && {
+          date: new Date(data.date),
+        }),
       })
       res.json(result)
     } catch {

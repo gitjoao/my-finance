@@ -5,6 +5,7 @@ import {
   createTransactionValidation,
   presetValidation,
   updateTransactionValidation,
+  listTransactionsValidation
 } from './validation'
 
 const router = Router()
@@ -14,7 +15,7 @@ router.post('/', validate(createTransactionValidation), controller.create)
 
 router.get('/summary', controller.summary)
 
-router.get('/', controller.list)
+router.get('/', validate(listTransactionsValidation), controller.list)
 
 router.get('/:id', controller.findById)
 
