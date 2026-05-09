@@ -37,14 +37,14 @@ export class TransactionController {
       | 'debit'
       | undefined
 
-    const category = req.query.category as string | undefined
+    const categoryId = req.query.categoryId as string | undefined
 
     const transactions = await service.list({
       type,
       month,
       year,
       paymentMethod,
-      category,
+      categoryId,
     })
 
     return res.json(transactions)
