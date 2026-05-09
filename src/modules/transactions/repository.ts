@@ -36,7 +36,7 @@ export class TransactionRepository {
 		}
 
 		if (filters.category) {
-			where.category = filters.category;
+			where.categoryId = filters.category;
 		}
 
 		return prisma.transaction.findMany({

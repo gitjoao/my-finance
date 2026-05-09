@@ -23,7 +23,8 @@ model Transaction {
   id          String   @id @default(uuid())
   type        TransactionType
   amount      Float
-  category    String
+  categoryId String?
+  category    Category? @relation(fields: [categoryId], references: [id])
   paymentMethod PaymentMethod?
   installmentGroup String?
   installmentTotal Int?
@@ -32,6 +33,15 @@ model Transaction {
   description String?
   date        DateTime
   createdAt   DateTime @default(now())
+}
+
+model Category {
+  id String @id @default(uuid())
+  name String
+  slug String @unique
+  type TransactionType
+  createdAt DateTime @default(now())
+  transactions Transaction[]
 }
 
 // npx prisma migrate dev --name migration_name
