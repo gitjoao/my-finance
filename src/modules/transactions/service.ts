@@ -1,22 +1,25 @@
-import { randomUUID } from "node:crypto";
-import { fixedExpenses } from "./preset/fixedExpenses";
-import { TransactionRepository } from "./repository";
+import { randomUUID } from 'node:crypto'
+import { fixedExpenses } from './preset/fixedExpenses'
+import { TransactionRepository } from './repository'
 
 export class TransactionService {
-  private repo = new TransactionRepository();
+  private repo = new TransactionRepository()
 
   async create(data: any) {
-    const isInstallment = data.paymentMethod === "credit" && data.installmentTotal && data.installmentTotal > 1;
+    const isInstallment =
+      data.paymentMethod === 'credit' &&
+      data.installmentTotal &&
+      data.installmentTotal > 1
 
     if (isInstallment) {
-      const installmentGroup = randomUUID();
+      const installmentGroup = randomUUID()
 
-      const transactions = [];
+      const transactions = []
 
       for (let i = 0; i < data.installmentTotal; i++) {
-        const installmentDate = new Date(data.date);
+        const installmentDate = new Date(data.date)
 
-        installmentDate.setMonth(installmentDate.getMonth() + i);
+        installmentDate.setMonth(installmentDate.getMonth() + i)
 
         transactions.push({
           ...data,
@@ -24,27 +27,27 @@ export class TransactionService {
           installmentNumber: i + 1,
           installmentTotal: data.installmentTotal,
           date: installmentDate,
-        });
+        })
       }
 
-      return this.repo.createMany(transactions);
+      return this.repo.createMany(transactions)
     }
 
-    return this.repo.create(data);
+    return this.repo.create(data)
   }
 
   async getSummaryByMonth(month: number, year: number) {
-    const start = new Date(Date.UTC(year, month - 1, 1));
+    const start = new Date(Date.UTC(year, month - 1, 1))
 
-    const end = new Date(Date.UTC(year, month, 1));
+    const end = new Date(Date.UTC(year, month, 1))
 
     const [income, expense, meCredit, fatherInLawCredit, transactions] =
-      await this.repo.getSummaryByMonth(start, end);
+      await this.repo.getSummaryByMonth(start, end)
 
-    const totalIncome = income._sum.amount ?? 0;
-    const totalExpense = expense._sum.amount ?? 0;
-    const totalMeCredit = meCredit._sum.amount ?? 0;
-    const totalFatherInLawCredit = fatherInLawCredit._sum.amount ?? 0;
+    const totalIncome = income._sum.amount ?? 0
+    const totalExpense = expense._sum.amount ?? 0
+    const totalMeCredit = meCredit._sum.amount ?? 0
+    const totalFatherInLawCredit = fatherInLawCredit._sum.amount ?? 0
 
     return {
       summary: {
@@ -57,56 +60,56 @@ export class TransactionService {
         fatherInLaw: totalFatherInLawCredit,
       },
       transactions,
-    };
+    }
   }
 
   async list(filters: {
-    type?: "income" | "expense";
-    month?: number;
-    year?: number;
-    paymentMethod?: "credit" | "debit";
-    category?: string;
+    type?: 'income' | 'expense'
+    month?: number
+    year?: number
+    paymentMethod?: 'credit' | 'debit'
+    category?: string
   }) {
-    return this.repo.findAll(filters);
+    return this.repo.findAll(filters)
   }
 
   async delete(id: string) {
-    const transaction = await this.repo.findById(id);
+    const transaction = await this.repo.findById(id)
 
     if (!transaction) {
-      throw new Error("Transação não encontrada");
+      throw new Error('Transação não encontrada')
     }
 
-    return this.repo.delete(id);
+    return this.repo.delete(id)
   }
 
   async update(id: string, data: Partial<any>) {
-    const transaction = await this.repo.findById(id);
+    const transaction = await this.repo.findById(id)
     if (!transaction) {
-      throw new Error("Transação não encontrada");
+      throw new Error('Transação não encontrada')
     }
-    return this.repo.update(id, data);
+    return this.repo.update(id, data)
   }
 
   async findById(id: string) {
-    const transaction = await this.repo.findById(id);
+    const transaction = await this.repo.findById(id)
     if (!transaction) {
-      throw new Error("Transação não encontrada");
+      throw new Error('Transação não encontrada')
     }
-    return transaction;
+    return transaction
   }
 
   async createPreset(month: number, year: number) {
     const transactions = fixedExpenses.map((expense) => ({
-      type: "expense",
+      type: 'expense',
       amount: expense.amount,
       category: expense.category,
-      paymentMethod: "debit",
-      owner: "me",
+      paymentMethod: 'debit',
+      owner: 'me',
       description: expense.description,
       date: new Date(Date.UTC(year, month - 1, 1)),
-    }));
+    }))
 
-    return this.repo.createMany(transactions);
+    return this.repo.createMany(transactions)
   }
 }

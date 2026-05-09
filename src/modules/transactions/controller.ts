@@ -1,11 +1,10 @@
-import { Request, Response } from "express"
-import { TransactionService } from "./service"
+import { Request, Response } from 'express'
+import { TransactionService } from './service'
 
 const service = new TransactionService()
 
 export class TransactionController {
   async create(req: Request, res: Response) {
-
     const data = req.body
 
     const result = await service.create({ ...data, date: new Date(data.date) })
@@ -20,41 +19,33 @@ export class TransactionController {
 
     const result = await service.getSummaryByMonth(
       Number(month) || currentMonth,
-      Number(year) || currentYear
+      Number(year) || currentYear,
     )
 
     res.json(result)
   }
 
   async list(req: Request, res: Response) {
-    const type = req.query.type as
-      | "income"
-      | "expense"
-      | undefined
+    const type = req.query.type as 'income' | 'expense' | undefined
 
-    const month = req.query.month
-      ? Number(req.query.month)
-      : undefined
+    const month = req.query.month ? Number(req.query.month) : undefined
 
-    const year = req.query.year
-      ? Number(req.query.year)
-      : undefined
+    const year = req.query.year ? Number(req.query.year) : undefined
 
     const paymentMethod = req.query.paymentMethod as
-      | "credit"
-      | "debit"
+      | 'credit'
+      | 'debit'
       | undefined
 
     const category = req.query.category as string | undefined
 
-    const transactions =
-      await service.list({
-        type,
-        month,
-        year,
-        paymentMethod,
-        category,
-      })
+    const transactions = await service.list({
+      type,
+      month,
+      year,
+      paymentMethod,
+      category,
+    })
 
     return res.json(transactions)
   }
@@ -64,7 +55,7 @@ export class TransactionController {
     try {
       await service.delete(String(id))
     } catch {
-      return res.status(404).json({ message: "Transação não encontrada" })
+      return res.status(404).json({ message: 'Transação não encontrada' })
     }
     res.status(204).send()
   }
@@ -74,10 +65,13 @@ export class TransactionController {
     const data = req.body
 
     try {
-      const result = await service.update(String(id), { ...data, date: new Date(data.date) })
+      const result = await service.update(String(id), {
+        ...data,
+        date: new Date(data.date),
+      })
       res.json(result)
     } catch {
-      return res.status(404).json({ message: "Transação não encontrada" })
+      return res.status(404).json({ message: 'Transação não encontrada' })
     }
   }
 
@@ -87,21 +81,17 @@ export class TransactionController {
       const transaction = await service.findById(String(id))
       res.json(transaction)
     } catch {
-      return res.status(404).json({ message: "Transação não encontrada" })
+      return res.status(404).json({ message: 'Transação não encontrada' })
     }
   }
 
-  async createPreset(
-    req: Request,
-    res: Response
-  ) {
+  async createPreset(req: Request, res: Response) {
     const { month, year } = req.body
 
     await service.createPreset(month, year)
 
     return res.status(201).json({
-      message:
-        "Despesas fixas criadas com sucesso",
+      message: 'Despesas fixas criadas com sucesso',
     })
   }
 }
