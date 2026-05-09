@@ -5,7 +5,7 @@ type Filters = {
   month?: number
   year?: number
   paymentMethod?: 'credit' | 'debit'
-  category?: string
+  categoryId?: string
 }
 
 export class TransactionRepository {
@@ -35,8 +35,8 @@ export class TransactionRepository {
       where.paymentMethod = filters.paymentMethod
     }
 
-    if (filters.category) {
-      where.categoryId = filters.category
+    if (filters.categoryId) {
+      where.categoryId = filters.categoryId
     }
 
     return prisma.transaction.findMany({
@@ -44,6 +44,9 @@ export class TransactionRepository {
       orderBy: {
         date: 'asc',
       },
+      include: {
+        category: true,
+      }
     })
   }
 

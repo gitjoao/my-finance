@@ -4,7 +4,7 @@ export const createTransactionValidation = z
   .object({
     type: z.enum(['income', 'expense']),
     amount: z.number().positive(),
-    category: z.string().min(1),
+    categoryId: z.string().min(1),
     paymentMethod: z.enum(['credit', 'debit']).optional(),
     installmentTotal: z.number().positive().optional(),
     owner: z.enum(['me', 'father_in_law']).optional(),
@@ -26,7 +26,7 @@ export const createTransactionValidation = z
 
 export const updateTransactionValidation = z.object({
   amount: z.number().positive().optional(),
-  category: z.string().min(1).optional(),
+  categoryId: z.string().min(1).optional(),
   paymentMethod: z.enum(['credit', 'debit']).optional(),
   description: z.string().optional(),
   date: z.string().optional(),
