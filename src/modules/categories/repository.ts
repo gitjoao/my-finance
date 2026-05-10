@@ -8,4 +8,25 @@ export class CategoryRepository {
     }
     return prisma.category.findMany({ where, orderBy: { name: 'asc' } })
   }
+
+  findById(id: string) {
+    return prisma.category.findUnique({ where: { id } })
+  }
+
+  create(data: { name: string; type: 'income' | 'expense'; slug: string }) {
+    return prisma.category.create({ data })
+  }
+
+  update(id: string, data: { name?: string; type?: 'income' | 'expense' }) {
+    return prisma.category.update({ where: { id }, data })
+  }
+
+  async delete(id: string) {
+    try {
+      await prisma.category.delete({ where: { id } })
+      return true
+    } catch (error) {
+      return false
+    }
+  }
 }
