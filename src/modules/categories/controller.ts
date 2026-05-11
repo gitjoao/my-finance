@@ -40,6 +40,7 @@ export class CategoryController {
     if (!success) {
       return res.status(404).json({ message: 'Category not found' })
     }
+    console.log(`Category with id ${id} deleted successfully`)
     return res.status(204).send()
   }
 }
