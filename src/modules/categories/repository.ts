@@ -29,4 +29,14 @@ export class CategoryRepository {
       return false
     }
   }
+
+  findAllWithLimit() {
+    return prisma.category.findMany({
+      where: {
+        limit: {
+          not: null,
+        },
+      },
+    })
+  }
 }

@@ -24,7 +24,6 @@ export class TransactionRepository {
       const start = new Date(Date.UTC(filters.year, filters.month - 1, 1))
 
       const end = new Date(Date.UTC(filters.year, filters.month, 1))
-
       where.date = {
         gte: start,
         lt: end,
