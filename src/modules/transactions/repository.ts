@@ -102,6 +102,22 @@ export class TransactionRepository {
     return prisma.transaction.delete({ where: { id } })
   }
 
+  getSummaryByCategory(month: number, year: number) {
+    return prisma.transaction.groupBy({
+      by: ['categoryId'],
+      where: {
+        type: 'expense',
+        date: {
+          gte: new Date(Date.UTC(year, month - 1, 1)),
+          lt: new Date(Date.UTC(year, month, 1)),
+        },
+      },
+      _sum: {
+        amount: true,
+      },
+    })
+  }
+
   createMany(data: any[]) {
     return prisma.transaction.createMany({
       data,

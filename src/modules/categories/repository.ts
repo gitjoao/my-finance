@@ -33,10 +33,20 @@ export class CategoryRepository {
   findAllWithLimit() {
     return prisma.category.findMany({
       where: {
-        limit: {
-          not: null,
-        },
+        AND: [
+          {
+            limit: {
+              not: null,
+            },
+          },
+          {
+            limit: {
+              not: 0,
+            },
+          },
+        ],
       },
     })
+
   }
 }
