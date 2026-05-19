@@ -6,10 +6,7 @@ export class TransactionService {
   private repo = new TransactionRepository()
 
   async create(data: any) {
-    const isInstallment =
-      data.paymentMethod === 'credit' &&
-      data.installmentTotal &&
-      data.installmentTotal > 1
+    const isInstallment = data.installmentTotal && data.installmentTotal > 1
 
     if (isInstallment) {
       const installmentGroup = randomUUID()
@@ -103,7 +100,7 @@ export class TransactionService {
     const transactions = fixedExpenses.map((expense) => ({
       type: 'expense',
       amount: expense.amount,
-      category: expense.category,
+      categoryId: expense.category,
       paymentMethod: 'debit',
       owner: 'me',
       description: expense.description,
