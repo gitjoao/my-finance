@@ -6,7 +6,7 @@ export const createTransactionValidation = {
     type: z.enum(TransactionType),
     amount: z.number({ error: "O valor é obrigatório" }).positive(),
     categoryId: z.uuid({ error: "Selecione uma categoria" }),
-    paymentMethod: z.enum(PaymentMethod, { error: "O meio de pagamento é obrigatório" }),
+    paymentMethod: z.enum(PaymentMethod, { error: "O meio de pagamento é obrigatório" }).optional(),
     installmentTotal: z.number({ error: "O total de parcelas é obrigatório" }).positive().optional(),
     owner: z.enum(TransactionOwner, { error: "O proprietário é obrigatório" }),
     description: z.string().optional(),
