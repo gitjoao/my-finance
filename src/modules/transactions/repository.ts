@@ -123,4 +123,29 @@ export class TransactionRepository {
       data,
     })
   }
+
+
+  getAllTransactionsByPeriod(startDate: Date, endDate: Date) {
+    return prisma.transaction.findMany({
+      where: {
+        type: 'expense',
+        date: {
+          gte: startDate,
+          lt: endDate,
+        },
+      },
+      select: {
+        amount: true,
+        date: true,
+        category: {
+          select: {
+            name: true,
+            color: true,
+          }
+        }
+      },
+      orderBy: { date: 'asc' },
+    })
+  }
 }
+

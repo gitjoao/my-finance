@@ -11,4 +11,15 @@ export class ReportController {
     const expenseSummaries = await service.getExpenseCategorySummaries(month, year)
     return res.json(expenseSummaries)
   }
+
+  async getAllTransactionsByPeriod(req: Request, res: Response) {
+    const { startMonth, startYear, endMonth, endYear } = req.query as unknown as {
+      startMonth: number
+      startYear: number
+      endMonth: number
+      endYear: number
+    }
+    const transactions = await service.getAllTransactionsByPeriod(startMonth, startYear, endMonth, endYear)
+    return res.json(transactions)
+  }
 }

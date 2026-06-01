@@ -30,4 +30,52 @@ export class ReportService {
     return expenseSummaries
   }
 
+  async getAllTransactionsByPeriod(startMonth: number,
+    startYear: number,
+    endMonth: number,
+    endYear: number) {
+    const startDate = new Date(
+      Date.UTC(startYear, startMonth - 1, 1),
+    );
+
+    const endDate = new Date(
+      Date.UTC(endYear, endMonth, 1),
+    );
+    const transactions = await this.transactionRepository.getAllTransactionsByPeriod(startDate, endDate)
+
+    const result = new Map();
+
+    for (const transaction of transactions) {
+      const category =
+        transaction.category?.name ??
+        "Sem categoria";
+      const color =
+        transaction.category?.color ??
+        "#ccc";
+      const month =
+        `${transaction.date.getUTCFullYear()}-${String(
+          transaction.date.getUTCMonth() + 1,
+        ).padStart(2, "0")}`;
+
+      if (!result.has(category)) {
+        result.set(category, {
+          category,
+          color,
+          total: 0,
+          months: {},
+        });
+      }
+
+      const item = result.get(category);
+
+      item.total += transaction.amount;
+
+      item.months[month] =
+        (item.months[month] ?? 0) +
+        transaction.amount;
+    }
+
+    return [...result.values()];
+  }
+
 }
