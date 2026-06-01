@@ -96,4 +96,14 @@ export class TransactionController {
       message: 'Despesas fixas criadas com sucesso',
     })
   }
+
+  async payCreditCardBill(req: Request, res: Response) {
+    const { month, year } = req.body
+
+    await service.payCreditCardBill(month, year)
+
+    return res.status(200).json({
+      message: 'Fatura do cartão de crédito paga com sucesso',
+    })
+  }
 }

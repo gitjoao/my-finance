@@ -23,6 +23,8 @@ router.put('/:id', validate(updateTransactionValidation), controller.update)
 
 router.delete('/:id', controller.delete)
 
+router.post('/pay-credit-card-bill', controller.payCreditCardBill)
+
 router.post('/preset', validate(presetValidation), controller.createPreset)
 
 export default router

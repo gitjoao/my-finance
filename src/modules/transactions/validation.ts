@@ -22,6 +22,7 @@ export const updateTransactionValidation = {
     categoryId: z.uuid({ error: "Selecione uma categoria" }).min(1).optional(),
     paymentMethod: z.enum(PaymentMethod, { error: "O meio de pagamento é obrigatório" }).optional(),
     description: z.string().optional(),
+    paid: z.boolean().optional(),
     date: z.string({ error: "A data é obrigatória" }).optional(),
   })
 }
@@ -40,6 +41,7 @@ export const listTransactionsValidation = {
     year: z.coerce.number().min(2000).max(2100).optional(),
     paymentMethod: z.enum(PaymentMethod).optional(),
     categoryId: z.uuid().min(1).optional(),
+    paid: z.boolean().optional(),
   })
 }
 

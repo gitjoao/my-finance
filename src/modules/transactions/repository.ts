@@ -124,7 +124,6 @@ export class TransactionRepository {
     })
   }
 
-
   getAllTransactionsByPeriod(startDate: Date, endDate: Date) {
     return prisma.transaction.findMany({
       where: {
@@ -146,6 +145,23 @@ export class TransactionRepository {
       },
       orderBy: { date: 'asc' },
     })
+  }
+
+  updateExpensesCreditCard(start: Date, end: Date) {
+    return prisma.transaction.updateMany({
+      where: {
+        type: "expense",
+        paymentMethod: "credit",
+        paid: false,
+        date: {
+          gte: start,
+          lt: end,
+        },
+      },
+      data: {
+        paid: true
+      },
+    });
   }
 }
 

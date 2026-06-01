@@ -109,4 +109,15 @@ export class TransactionService {
 
     return this.repo.createMany(transactions)
   }
+
+  async payCreditCardBill(month: number, year: number) {
+    const start = new Date(Date.UTC(year, month - 1, 1));
+    const end = new Date(Date.UTC(year, month, 1));
+
+    try {
+      await this.repo.updateExpensesCreditCard(start, end);
+    } catch (error) {
+      throw new Error('Erro ao pagar a fatura do cartão de crédito');
+    }
+  }
 }
