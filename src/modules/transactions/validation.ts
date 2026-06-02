@@ -41,9 +41,13 @@ export const listTransactionsValidation = {
     year: z.coerce.number().min(2000).max(2100).optional(),
     paymentMethod: z.enum(PaymentMethod).optional(),
     categoryId: z.uuid().min(1).optional(),
-    paid: z.boolean().optional(),
+    paid: z.enum(['true', 'false']).transform((v) => v === 'true').optional(),
   })
 }
+
+export type GetTransactionsDTO = z.infer<
+  typeof listTransactionsValidation.query
+>;
 
 export type CreateTransactionDTO = z.infer<typeof createTransactionValidation>
 export type UpdateTransactionDTO = z.infer<typeof updateTransactionValidation.body>

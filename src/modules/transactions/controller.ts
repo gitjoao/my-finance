@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { TransactionService } from './service'
+import { GetTransactionsDTO, listTransactionsValidation } from './validation'
 
 const service = new TransactionService()
 
@@ -26,26 +27,9 @@ export class TransactionController {
   }
 
   async list(req: Request, res: Response) {
-    const type = req.query.type as 'income' | 'expense' | undefined
+    const filters = listTransactionsValidation.query.parse(req.query) as GetTransactionsDTO
 
-    const month = req.query.month ? Number(req.query.month) : undefined
-
-    const year = req.query.year ? Number(req.query.year) : undefined
-
-    const paymentMethod = req.query.paymentMethod as
-      | 'credit'
-      | 'debit'
-      | undefined
-
-    const categoryId = req.query.categoryId as string | undefined
-
-    const transactions = await service.list({
-      type,
-      month,
-      year,
-      paymentMethod,
-      categoryId,
-    })
+    const transactions = await service.list(filters)
 
     return res.json(transactions)
   }
