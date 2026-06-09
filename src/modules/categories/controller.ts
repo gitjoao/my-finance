@@ -1,6 +1,11 @@
 import { Request, Response } from 'express'
 import { CategoryService } from './service'
-import { CreateCategory, ListCategories, UpdateCategory, UpdateCategoryParams } from './validation'
+import {
+  CreateCategory,
+  ListCategories,
+  UpdateCategory,
+  UpdateCategoryParams,
+} from './validation'
 const service = new CategoryService()
 
 export class CategoryController {

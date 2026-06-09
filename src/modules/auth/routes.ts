@@ -1,7 +1,7 @@
-import { Router } from "express";
-import { validate } from "../../middlewares/validate";
-import { AuthController } from "./controller";
-import { loginValidation } from "./validation";
+import { Router } from 'express'
+import { validate } from '../../middlewares/validate'
+import { AuthController } from './controller'
+import { loginValidation } from './validation'
 
 const router = Router()
 const controller = new AuthController()

@@ -1,7 +1,11 @@
 import { Router } from 'express'
 import { CategoryController } from './controller'
 import { validate } from '../../middlewares/validate'
-import { createCategoryValidation, listCategoriesValidation, updateCategoryValidation } from './validation'
+import {
+  createCategoryValidation,
+  listCategoriesValidation,
+  updateCategoryValidation,
+} from './validation'
 
 const router = Router()
 const controller = new CategoryController()

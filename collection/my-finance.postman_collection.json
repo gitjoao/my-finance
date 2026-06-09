@@ -26,13 +26,9 @@
             "url": {
               "raw": "http://localhost:3333/transactions",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "3333",
-              "path": [
-                "transactions"
-              ]
+              "path": ["transactions"]
             }
           },
           "response": []
@@ -54,14 +50,9 @@
             "url": {
               "raw": "http://localhost:3333/transactions/",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "3333",
-              "path": [
-                "transactions",
-                ""
-              ]
+              "path": ["transactions", ""]
             }
           },
           "response": []
@@ -83,14 +74,9 @@
             "url": {
               "raw": "http://localhost:3000/transactions/9a8d75d6-78eb-4530-9cf1-26399bcd528d",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "3000",
-              "path": [
-                "transactions",
-                "9a8d75d6-78eb-4530-9cf1-26399bcd528d"
-              ]
+              "path": ["transactions", "9a8d75d6-78eb-4530-9cf1-26399bcd528d"]
             }
           },
           "response": []
@@ -103,13 +89,9 @@
             "url": {
               "raw": "http://localhost:3333/transactions?month=6&year=2026",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "3333",
-              "path": [
-                "transactions"
-              ],
+              "path": ["transactions"],
               "query": [
                 {
                   "key": "month",
@@ -144,14 +126,9 @@
             "url": {
               "raw": "http://localhost:3333/transactions/summary?month=5&year=2026",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "3333",
-              "path": [
-                "transactions",
-                "summary"
-              ],
+              "path": ["transactions", "summary"],
               "query": [
                 {
                   "key": "month",
@@ -185,14 +162,9 @@
             "url": {
               "raw": "http://localhost:3333/transactions/preset",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "3333",
-              "path": [
-                "transactions",
-                "preset"
-              ]
+              "path": ["transactions", "preset"]
             }
           },
           "response": []
@@ -210,13 +182,9 @@
             "url": {
               "raw": "http://localhost:3333/categories",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "3333",
-              "path": [
-                "categories"
-              ]
+              "path": ["categories"]
             }
           },
           "response": []
@@ -229,13 +197,9 @@
             "url": {
               "raw": "http://localhost:3333/categories",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "3333",
-              "path": [
-                "categories"
-              ]
+              "path": ["categories"]
             }
           },
           "response": []
@@ -248,14 +212,9 @@
             "url": {
               "raw": "http://localhost:3333/categories/{{id}}",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "3333",
-              "path": [
-                "categories",
-                "{{id}}"
-              ]
+              "path": ["categories", "{{id}}"]
             }
           },
           "response": []
@@ -268,14 +227,9 @@
             "url": {
               "raw": "http://localhost:3333/categories/{{id}}",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "3333",
-              "path": [
-                "categories",
-                "{{id}}"
-              ]
+              "path": ["categories", "{{id}}"]
             }
           },
           "response": []
@@ -314,14 +268,9 @@
             "url": {
               "raw": "http://localhost:3333/reports/transactions-by-period?startMonth=5&startYear=2026&endMonth=8&endYear=2026",
               "protocol": "http",
-              "host": [
-                "localhost"
-              ],
+              "host": ["localhost"],
               "port": "3333",
-              "path": [
-                "reports",
-                "transactions-by-period"
-              ],
+              "path": ["reports", "transactions-by-period"],
               "query": [
                 {
                   "key": "startMonth",

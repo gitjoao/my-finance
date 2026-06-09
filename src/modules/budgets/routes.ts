@@ -7,6 +7,10 @@ const router = Router()
 
 const controller = new BudgetController()
 
-router.get('/summary', validate(getCategoryBudgetsValidate), controller.getCategoryBudgets)
+router.get(
+  '/summary',
+  validate(getCategoryBudgetsValidate),
+  controller.getCategoryBudgets,
+)
 
 export default router

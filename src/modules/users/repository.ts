@@ -1,6 +1,5 @@
 import { prisma } from '../../lib/prisma'
 
-
 export class UserRepository {
   create(data: any) {
     return prisma.user.create({ data })

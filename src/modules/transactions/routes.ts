@@ -5,7 +5,7 @@ import {
   createTransactionValidation,
   presetValidation,
   updateTransactionValidation,
-  listTransactionsValidation
+  listTransactionsValidation,
 } from './validation'
 
 const router = Router()

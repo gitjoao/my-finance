@@ -49,7 +49,7 @@ export class TransactionRepository {
       },
       include: {
         category: true,
-      }
+      },
     })
   }
 
@@ -144,8 +144,8 @@ export class TransactionRepository {
           select: {
             name: true,
             color: true,
-          }
-        }
+          },
+        },
       },
       orderBy: { date: 'asc' },
     })
@@ -154,8 +154,8 @@ export class TransactionRepository {
   updateExpensesCreditCard(start: Date, end: Date) {
     return prisma.transaction.updateMany({
       where: {
-        type: "expense",
-        paymentMethod: "credit",
+        type: 'expense',
+        paymentMethod: 'credit',
         paid: false,
         date: {
           gte: start,
@@ -163,9 +163,8 @@ export class TransactionRepository {
         },
       },
       data: {
-        paid: true
+        paid: true,
       },
-    });
+    })
   }
 }
-

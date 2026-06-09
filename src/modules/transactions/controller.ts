@@ -27,7 +27,9 @@ export class TransactionController {
   }
 
   async list(req: Request, res: Response) {
-    const filters = listTransactionsValidation.query.parse(req.query) as GetTransactionsDTO
+    const filters = listTransactionsValidation.query.parse(
+      req.query,
+    ) as GetTransactionsDTO
 
     const transactions = await service.list(filters)
 

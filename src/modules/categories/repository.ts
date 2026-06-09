@@ -13,11 +13,24 @@ export class CategoryRepository {
     return prisma.category.findUnique({ where: { id } })
   }
 
-  create(data: { name: string; type: 'income' | 'expense'; color: string; limit?: number }) {
+  create(data: {
+    name: string
+    type: 'income' | 'expense'
+    color: string
+    limit?: number
+  }) {
     return prisma.category.create({ data })
   }
 
-  update(id: string, data: { name?: string; type?: 'income' | 'expense'; color?: string; limit?: number }) {
+  update(
+    id: string,
+    data: {
+      name?: string
+      type?: 'income' | 'expense'
+      color?: string
+      limit?: number
+    },
+  ) {
     return prisma.category.update({ where: { id }, data })
   }
 
@@ -47,6 +60,5 @@ export class CategoryRepository {
         ],
       },
     })
-
   }
 }

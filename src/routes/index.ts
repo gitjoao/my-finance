@@ -7,10 +7,11 @@ import budgetsRoutes from '../modules/budgets/routes'
 import reportsRoutes from '../modules/reports/routes'
 import usersRoutes from '../modules/users/routes'
 import authRoutes from '../modules/auth/routes'
+import { auth } from '../middlewares/auth'
 
 const router = Router()
 
-router.use('/transactions', transactionRoutes)
+router.use('/transactions', auth, transactionRoutes)
 router.use('/dashboard', dashboardRoutes)
 router.use('/categories', categoriesRoutes)
 router.use('/budgets', budgetsRoutes)
