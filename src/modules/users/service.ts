@@ -1,4 +1,5 @@
 import { UserRepository } from "./repository";
+import bcrypt from "bcryptjs";
 
 export class UserService {
   private userRepository = new UserRepository()
@@ -11,6 +12,8 @@ export class UserService {
       throw new Error("User already exists")
     }
 
-    return this.userRepository.create(data)
+    const passwordHash = await bcrypt.hash(data.password, 10)
+
+    return this.userRepository.create({ ...data, password: passwordHash })
   }
 }

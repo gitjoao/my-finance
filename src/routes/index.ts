@@ -6,6 +6,7 @@ import categoriesRoutes from '../modules/categories/routes'
 import budgetsRoutes from '../modules/budgets/routes'
 import reportsRoutes from '../modules/reports/routes'
 import usersRoutes from '../modules/users/routes'
+import authRoutes from '../modules/auth/routes'
 
 const router = Router()
 
@@ -15,5 +16,6 @@ router.use('/categories', categoriesRoutes)
 router.use('/budgets', budgetsRoutes)
 router.use('/reports', reportsRoutes)
 router.use('/users', usersRoutes)
+router.use('/auth', authRoutes)
 
 export default router
