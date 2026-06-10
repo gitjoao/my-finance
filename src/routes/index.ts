@@ -11,7 +11,7 @@ import { auth } from '../middlewares/auth'
 
 const router = Router()
 
-router.use('/transactions', auth, transactionRoutes)
+router.use('/transactions', transactionRoutes)
 router.use('/dashboard', dashboardRoutes)
 router.use('/categories', categoriesRoutes)
 router.use('/budgets', budgetsRoutes)

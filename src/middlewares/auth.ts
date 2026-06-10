@@ -1,12 +1,12 @@
-import { Request, Response, NextFunction } from 'express'
+import { Response, NextFunction } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
+import { AuthRequest } from '../types/AuthRequest'
 
 type TokenPayload = JwtPayload & {
   sub: string
-  username: string
 }
 
-export function auth(req: Request, res: Response, next: NextFunction) {
+export function auth(req: AuthRequest, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization
 
   if (!authHeader) {
