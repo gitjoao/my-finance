@@ -45,7 +45,7 @@ export class TransactionRepository {
     return prisma.transaction.findMany({
       where,
       orderBy: {
-        date: 'desc',
+        createdAt: 'desc',
       },
       include: {
         category: true,
