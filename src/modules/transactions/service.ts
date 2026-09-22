@@ -67,6 +67,7 @@ export class TransactionService {
     paymentMethod?: 'credit' | 'debit'
     categoryId?: string
     paid?: boolean
+    description?: string
   }) {
     return this.repo.findAll(filters)
   }

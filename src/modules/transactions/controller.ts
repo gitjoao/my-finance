@@ -4,11 +4,17 @@ import { GetTransactionsDTO, listTransactionsValidation } from './validation'
 
 const service = new TransactionService()
 
+function normalizeText(value: string) {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+}
 export class TransactionController {
   async create(req: Request, res: Response) {
     const data = req.body
 
-    const result = await service.create({ ...data, date: new Date(data.date) })
+    const result = await service.create({ ...data, date: new Date(data.date), descriptionNormalized: normalizeText(data.description) })
     res.json(result)
   }
 
@@ -53,6 +59,9 @@ export class TransactionController {
     try {
       const result = await service.update(String(id), {
         ...data,
+        ...(data.description && {
+          descriptionNormalized: normalizeText(data.description)
+        }),
         ...(data.date && {
           date: new Date(data.date),
         }),

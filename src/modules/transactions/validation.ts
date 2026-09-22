@@ -52,6 +52,7 @@ export const listTransactionsValidation = {
     year: z.coerce.number().min(2000).max(2100).optional(),
     paymentMethod: z.enum(PaymentMethod).optional(),
     categoryId: z.uuid().min(1).optional(),
+    description: z.string().optional(),
     paid: z
       .enum(['true', 'false'])
       .transform((v) => v === 'true')

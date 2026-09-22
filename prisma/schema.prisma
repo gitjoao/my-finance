@@ -31,6 +31,7 @@ model Transaction {
   installmentNumber Int?
   owner TransactionOwner @default(me)
   description String?
+  descriptionNormalized String?
   date DateTime
   createdAt DateTime @default(now())
   paid Boolean @default(false)

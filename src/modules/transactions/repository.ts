@@ -7,6 +7,7 @@ type Filters = {
   paymentMethod?: 'credit' | 'debit'
   categoryId?: string
   paid?: boolean
+  description?: string
 }
 
 export class TransactionRepository {
@@ -40,6 +41,12 @@ export class TransactionRepository {
     }
     if (filters.paid !== undefined) {
       where.paid = filters.paid
+    }
+    console.log(filters)
+    if (filters.description !== undefined) {
+      where.descriptionNormalized = {
+        contains: filters.description, mode: 'insensitive'
+      }
     }
 
     return prisma.transaction.findMany({
