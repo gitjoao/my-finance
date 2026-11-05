@@ -17,8 +17,7 @@ export class BudgetService {
     const transactions = await this.transactionRepository.findAll({
       month,
       year,
-      type: 'expense',
-      paymentMethod: 'credit',
+      type: 'expense'
     })
 
     const budgets: BudgetSummary[] = categoriesWithLimit.map((category) => {
