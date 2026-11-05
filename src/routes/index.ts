@@ -11,12 +11,12 @@ import { auth } from '../middlewares/auth'
 
 const router = Router()
 
-router.use('/transactions', transactionRoutes)
-router.use('/dashboard', dashboardRoutes)
-router.use('/categories', categoriesRoutes)
-router.use('/budgets', budgetsRoutes)
-router.use('/reports', reportsRoutes)
-router.use('/users', usersRoutes)
+router.use('/transactions', auth, transactionRoutes)
+router.use('/dashboard', auth, dashboardRoutes)
+router.use('/categories', auth, categoriesRoutes)
+router.use('/budgets', auth, budgetsRoutes)
+router.use('/reports', auth, reportsRoutes)
+router.use('/users', auth, usersRoutes)
 router.use('/auth', authRoutes)
 
 export default router
