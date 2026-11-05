@@ -5,8 +5,9 @@ import cookieParser from 'cookie-parser'
 
 const app = express()
 
+app.set("trust proxy", 1)
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: [process.env.FRONTEND_URL!, "http://localhost:3000"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
