@@ -8,6 +8,7 @@ import reportsRoutes from '../modules/reports/routes'
 import usersRoutes from '../modules/users/routes'
 import authRoutes from '../modules/auth/routes'
 import { auth } from '../middlewares/auth'
+import { loginLimiter } from '../middlewares/rateLimit'
 
 const router = Router()
 
@@ -17,6 +18,6 @@ router.use('/categories', auth, categoriesRoutes)
 router.use('/budgets', auth, budgetsRoutes)
 router.use('/reports', auth, reportsRoutes)
 router.use('/users', auth, usersRoutes)
-router.use('/auth', authRoutes)
+router.use('/auth', loginLimiter, authRoutes)
 
 export default router
